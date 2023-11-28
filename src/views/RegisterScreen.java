@@ -1,7 +1,7 @@
 package views;
 import java.util.Scanner;
 
-import db.BancoDeDados;
+import controllers.BancoDeDados;
 
 public class RegisterScreen {
     public static void register() {

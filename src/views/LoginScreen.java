@@ -3,9 +3,10 @@ package views;
 import java.util.Scanner;
 
 import controllers.Credenciais;
+import models.Usuario;
 
 public class LoginScreen {
-    public static void login() {
+    public static Usuario login() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite 1 para login e 2 para se registrar!");
 
@@ -15,13 +16,14 @@ public class LoginScreen {
         System.out.println("Digite sua senha!\n");
         String senha = scanner.nextLine().toString();
 
-        Boolean auth = Credenciais.verificaCredenciais(email, senha);
-        if (auth) {
+        Usuario user = Credenciais.verificaCredenciais(email, senha);
+        if (user != null) {
             System.out.println("Logado com sucesso!");
         } else {
             System.out.println("Credenciais inválidas!");
         }
 
         scanner.close();
+        return user;
     }
 }

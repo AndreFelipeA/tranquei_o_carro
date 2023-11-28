@@ -1,4 +1,4 @@
-package db;
+package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +20,7 @@ public class BancoDeDados {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:src/db/banco_de_dados.db";
+        String url = "jdbc:sqlite:db/banco_de_dados.db";
 
         try {
             // Conectar ao banco de dados
