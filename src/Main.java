@@ -8,33 +8,14 @@ public class Main {
         System.out.println("Digite 1 para login e 2 para se registrar!");
         String choice = scanner.nextLine();
         Integer c = Integer.parseInt(choice);
-        Usuario user;
         BancoDeDados db = BancoDeDados.getInstance();
         if(c.equals(1))
         {
-            System.out.println("Login");
-            System.out.println("Digite seu e-mail!\n");
-            String email = scanner.nextLine();
-            System.out.println("Digite sua senha!\n");
-            String senha = scanner.nextLine();
-            user = db.buscarUsuarioPorEmail(email.toString());
-            if(senha.equals(user.getSenha()));
-            {
-                System.out.println("Autenticado");
-            }
+            LoginScreen.login();
         }
         else
         {
-            System.out.println("Registrar");
-            System.out.println("Digite seu nome!\n");
-            String nome = scanner.nextLine();
-            System.out.println("Digite seu e-mail!\n");
-            String email = scanner.nextLine();
-            System.out.println("Digite sua senha!\n");
-            String senha = scanner.nextLine();
-            db.salvarUsuario(nome, email, senha);
-            user = new Usuario(nome, email, senha);
-
+            RegisterScreen.register();
         }
 
 
@@ -44,7 +25,6 @@ public class Main {
             e.printStackTrace();
         }
         scanner.close();
-
 
     }
 }

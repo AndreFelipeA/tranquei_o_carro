@@ -1,8 +1,14 @@
 
 public class Credenciais {
-    public boolean verificaCredenciais(String email, String senha)
+    public static boolean verificaCredenciais(String email, String senha)
     {
-        return true;
+        BancoDeDados db = BancoDeDados.getInstance();
+        Usuario user = db.buscarUsuarioPorEmail(email.toString());
+        if (senha.equals(user.getSenha())) {
+            return true;
+        }
+
+        return false;
     }
 
     public boolean verificaCredenciaisC(Carro carro)
