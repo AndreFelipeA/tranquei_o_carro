@@ -7,6 +7,7 @@ public class Usuario {
     private String email;
     private String senha;
     private ArrayList<Carro> carros;
+    private int id_usuario;
 
     public Usuario(String nome, String email, String senha) {
         this.nome = nome;
@@ -14,6 +15,20 @@ public class Usuario {
         this.senha = senha;
         this.carros = new ArrayList<Carro>();
     }
+
+    public Usuario(String nome, String email, String senha, int id_usuario) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.carros = new ArrayList<Carro>();
+        this.id_usuario = id_usuario;
+    }
+
+    public int getId()
+    {
+        return id_usuario;
+    }
+
 
     public String getNome() {
         return nome;

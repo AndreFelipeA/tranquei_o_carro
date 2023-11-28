@@ -6,13 +6,12 @@ import controllers.Credenciais;
 
 public class LoginScreen {
     public static boolean login() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("\nLogin");
         System.out.println("Digite seu e-mail!");
-        String email = scanner.nextLine().toString();
+        String email = sc.nextLine().toString();
         System.out.println("Digite sua senha!");
-        String senha = scanner.nextLine().toString();
-        scanner.close();
+        String senha = sc.nextLine().toString();
 
         boolean auth = Credenciais.verificaCredenciais(email, senha);
         if (auth) {

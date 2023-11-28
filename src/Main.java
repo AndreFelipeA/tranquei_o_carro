@@ -14,11 +14,18 @@ public class Main {
         System.out.println("Digite 1 para login e 2 para se registrar!");
         String choice = scanner.nextLine();
         Integer c = Integer.parseInt(choice);
-
+        
         if (c.equals(1)) {
             boolean auth = LoginScreen.login();
-            if (auth) {
+            while(auth) {
                 CarsListScreen.list();
+                System.out.println("Digite 1 para Adicionar carro");
+                String read = scanner.nextLine();
+                Integer add = Integer.parseInt(read);
+                if(add.equals(1))
+                {
+                    CarsListScreen.newCar();
+                }
             }
         } else {
             RegisterScreen.register();

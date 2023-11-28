@@ -10,6 +10,7 @@ public class Credenciais {
         BancoDeDados db = BancoDeDados.getInstance();
 
         Usuario user = db.buscarUsuarioPorEmail(email);
+        System.out.println(user.getSenha());
         if (senha.equals(user.getSenha())) {
             usuarioLogado = user;
             return true;

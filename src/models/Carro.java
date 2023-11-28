@@ -15,11 +15,11 @@ public class Carro {
         this.idCarro = idCarro;
     }
 
-    public Carro(int idCarro, String marca, String modelo, int ano) {
+    public Carro(String marca, String modelo, int ano, Usuario proprietario) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
-        this.idCarro = idCarro;
+        this.proprietario = proprietario;
     }
 
     public String getMarca() {
