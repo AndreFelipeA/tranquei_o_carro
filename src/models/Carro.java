@@ -61,4 +61,15 @@ public class Carro {
     public void setIdCarro(Integer idCarro) {
         this.idCarro = idCarro;
     }
+
+    @Override
+    public String toString() {
+        return "Carro{" +
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", ano=" + ano +
+                ", proprietario=" + proprietario +
+                ", idCarro=" + idCarro +
+                '}';
+    }
 }

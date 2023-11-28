@@ -16,15 +16,13 @@ public class Main {
         Integer c = Integer.parseInt(choice);
 
         if (c.equals(1)) {
-            Usuario user = LoginScreen.login();
-            if (user != null) {
-                CarsListScreen.list(user);
+            boolean auth = LoginScreen.login();
+            if (auth) {
+                CarsListScreen.list();
             }
         } else {
             RegisterScreen.register();
         }
-
-        
 
         BancoDeDados.endConnection();
         scanner.close();

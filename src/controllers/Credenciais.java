@@ -4,25 +4,29 @@ import models.Usuario;
 import models.Carro;
 
 public class Credenciais {
-    public static Usuario verificaCredenciais(String email, String senha)
-    {
+    private static Usuario usuarioLogado;
+
+    public static boolean verificaCredenciais(String email, String senha) {
         BancoDeDados db = BancoDeDados.getInstance();
 
         Usuario user = db.buscarUsuarioPorEmail(email);
         if (senha.equals(user.getSenha())) {
-            return user;
+            usuarioLogado = user;
+            return true;
         }
 
-        return null;
+        return false;
     }
 
-    public boolean verificaCredenciaisC(Carro carro)
-    {
+    public static Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public boolean verificaCredenciaisC(Carro carro) {
         return true;
     }
 
-    public String gerarCredenciais()
-    {
+    public String gerarCredenciais() {
         return "teste";
     }
 }

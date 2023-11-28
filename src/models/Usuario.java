@@ -1,4 +1,5 @@
 package models;
+
 import java.util.ArrayList;
 
 public class Usuario {
@@ -11,6 +12,7 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.carros = new ArrayList<Carro>();
     }
 
     public String getNome() {
@@ -29,27 +31,25 @@ public class Usuario {
         this.email = email;
     }
 
-    public void adicionarCarro(Carro carro)
-    {
+    public void adicionarCarro(Carro carro) {
         this.carros.add(carro);
     }
 
-    public void removerCarro(Carro carro)
-    {
+    public void removerCarro(Carro carro) {
         this.carros.remove(carro);
     }
-    
 
-    public void obterCarros()
-    {
-        for (Carro carro : this.carros)
-        {
-            System.out.print(carro);
+    public void obterCarros() {
+        if (this.carros.size() == 0) {
+            System.out.println("Nenhum carro cadastrado para esse usuário!");
+        } else {
+            for (Carro carro : this.carros) {
+                System.out.print(carro);
+            }
         }
     }
 
-    public String getSenha()
-    {
+    public String getSenha() {
         return senha;
     }
 
