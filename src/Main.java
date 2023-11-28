@@ -1,8 +1,6 @@
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import controllers.BancoDeDados;
-import models.Usuario;
 import views.CarsListScreen;
 import views.LoginScreen;
 import views.RegisterScreen;
@@ -10,28 +8,36 @@ import views.RegisterScreen;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // display login options
         System.out.println("Digite 1 para login e 2 para se registrar!");
-        String choice = scanner.nextLine();
+        Scanner sc = new Scanner(System.in);
+        String choice = sc.nextLine();
         Integer c = Integer.parseInt(choice);
-        
+
         if (c.equals(1)) {
+
+            // login and list cars
             boolean auth = LoginScreen.login();
-            while(auth) {
+            while (auth) {
                 CarsListScreen.list();
-                System.out.println("Digite 1 para Adicionar carro");
-                String read = scanner.nextLine();
-                Integer add = Integer.parseInt(read);
-                if(add.equals(1))
-                {
+
+                // display car options
+                System.out.println("Digite 1 para Adicionar carro e 2 para Sair.");
+                String read = sc.nextLine();
+                Integer cmd = Integer.parseInt(read);
+                if (cmd.equals(1)) {
                     CarsListScreen.newCar();
                 }
+
+                if (cmd.equals(2)) {
+                    auth = false;
+                }
             }
+
         } else {
             RegisterScreen.register();
         }
 
         BancoDeDados.endConnection();
-        scanner.close();
     }
 }

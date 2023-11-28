@@ -1,22 +1,21 @@
 package views;
+
 import java.util.Scanner;
 
-import controllers.BancoDeDados;
+import dao.UsuarioDao;
 
 public class RegisterScreen {
     public static void register() {
-        Scanner scanner = new Scanner(System.in);
-        BancoDeDados db = BancoDeDados.getInstance();
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Registrar");
         System.out.println("Digite seu nome!\n");
-        String nome = scanner.nextLine();
+        String nome = sc.nextLine();
         System.out.println("Digite seu e-mail!\n");
-        String email = scanner.nextLine();
+        String email = sc.nextLine();
         System.out.println("Digite sua senha!\n");
-        String senha = scanner.nextLine();
-        db.salvarUsuario(nome, email, senha);
-        
-        scanner.close();
+        String senha = sc.nextLine();
+
+        UsuarioDao.salvarUsuario(nome, email, senha);
     }
 }

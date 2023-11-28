@@ -59,7 +59,7 @@ public class Usuario {
             System.out.println("Nenhum carro cadastrado para esse usuário!");
         } else {
             for (Carro carro : this.carros) {
-                System.out.print(carro);
+                System.out.println(carro);
             }
         }
     }

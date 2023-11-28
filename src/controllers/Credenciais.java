@@ -2,14 +2,14 @@ package controllers; // Update the package declaration
 
 import models.Usuario;
 import models.Carro;
+import dao.UsuarioDao;
 
 public class Credenciais {
     private static Usuario usuarioLogado;
 
     public static boolean verificaCredenciais(String email, String senha) {
-        BancoDeDados db = BancoDeDados.getInstance();
 
-        Usuario user = db.buscarUsuarioPorEmail(email);
+        Usuario user = UsuarioDao.buscarUsuarioPorEmail(email);
         System.out.println(user.getSenha());
         if (senha.equals(user.getSenha())) {
             usuarioLogado = user;

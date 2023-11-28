@@ -68,7 +68,6 @@ public class Carro {
                 "marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", ano=" + ano +
-                ", proprietario=" + proprietario +
                 ", idCarro=" + idCarro +
                 '}';
     }
