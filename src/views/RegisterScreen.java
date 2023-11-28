@@ -1,4 +1,7 @@
+package views;
 import java.util.Scanner;
+
+import db.BancoDeDados;
 
 public class RegisterScreen {
     public static void register() {

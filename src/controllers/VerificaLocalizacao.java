@@ -1,3 +1,4 @@
+package controllers;
 public class VerificaLocalizacao {
 private double latitude;
 private double longitude;

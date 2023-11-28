@@ -1,4 +1,8 @@
+package views;
+
 import java.util.Scanner;
+
+import controllers.Credenciais;
 
 public class LoginScreen {
     public static void login() {
@@ -7,9 +11,9 @@ public class LoginScreen {
 
         System.out.println("Login");
         System.out.println("Digite seu e-mail!\n");
-        String email = scanner.nextLine();
+        String email = scanner.nextLine().toString();
         System.out.println("Digite sua senha!\n");
-        String senha = scanner.nextLine();
+        String senha = scanner.nextLine().toString();
 
         Boolean auth = Credenciais.verificaCredenciais(email, senha);
         if (auth) {

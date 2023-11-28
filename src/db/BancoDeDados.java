@@ -1,9 +1,13 @@
+package db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import models.Usuario;
 
 public class BancoDeDados {
     private static BancoDeDados instance;
@@ -16,8 +20,8 @@ public class BancoDeDados {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String url = "jdbc:sqlite:banco_de_dados.db";
-        
+        String url = "jdbc:sqlite:src/db/banco_de_dados.db";
+
         try {
             // Conectar ao banco de dados
             connection = DriverManager.getConnection(url);
@@ -70,6 +74,14 @@ public class BancoDeDados {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public static void endConnection() {
+        try {
+            instance.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void salvarUsuario(String nome, String email, String senha) {
