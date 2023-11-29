@@ -1,16 +1,21 @@
 package controllers;
 
-//public class ControlaTrancamento {
-//
-//  public void trancar()
-//  {
-//      System.out.println("Carro trancado\n");
-//  }
-//
-//  public void destrancar()
-//  {
-//      System.out.println("Carro destrancado\n");
-//
-//  }
-//
-//}
+public class ControlaTrancamento {
+
+    private boolean trancado;
+
+    public ControlaTrancamento(boolean trancado) {
+        this.trancado = trancado;
+    }
+
+    public boolean getTrancado() {
+        return this.trancado;
+    }
+
+    public void switchStatus() {
+        this.trancado = !this.trancado;
+        String status = this.trancado ? "trancado" : "destrancado";
+        System.out.println("Carro " + status + "\n");
+    }
+
+}

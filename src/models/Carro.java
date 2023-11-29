@@ -1,25 +1,29 @@
 package models;
 
+import controllers.ControlaTrancamento;
+
 public class Carro {
     private String marca;
     private String modelo;
     private Integer ano;
-    private Usuario proprietario;
     private Integer idCarro;
+    private ControlaTrancamento controlaTrancamento;
 
-    public Carro(String marca, String modelo, Integer ano, Usuario proprietario, Integer idCarro) {
+    public Carro(String marca, String modelo, Integer ano, Integer idCarro) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
-        this.proprietario = proprietario;
         this.idCarro = idCarro;
+
+        this.controlaTrancamento = new ControlaTrancamento(false);
     }
 
-    public Carro(String marca, String modelo, int ano, Usuario proprietario) {
+    public Carro(String marca, String modelo, int ano) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
-        this.proprietario = proprietario;
+
+        this.controlaTrancamento = new ControlaTrancamento(false);
     }
 
     public String getMarca() {
@@ -46,20 +50,16 @@ public class Carro {
         this.ano = ano;
     }
 
-    public Usuario getProprietario() {
-        return proprietario;
-    }
-
-    public void setProprietario(Usuario proprietario) {
-        this.proprietario = proprietario;
-    }
-
     public Integer getIdCarro() {
         return idCarro;
     }
 
     public void setIdCarro(Integer idCarro) {
         this.idCarro = idCarro;
+    }
+
+    public ControlaTrancamento getControlaTrancamento() {
+        return controlaTrancamento;
     }
 
     @Override

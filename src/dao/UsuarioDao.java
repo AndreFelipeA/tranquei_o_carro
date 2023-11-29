@@ -57,6 +57,7 @@ public class UsuarioDao {
 
                     // Criar um objeto Usuario com os dados recuperados
                     usuarioEncontrado = new Usuario(nome, email, senha, id);
+                    // Buscar os carros do usuário
                     ArrayList<Carro> carrosDoUsuario = CarroDao.buscarCarrosPorUsuario(id);
                     for (Carro carro : carrosDoUsuario) {
                         usuarioEncontrado.adicionarCarro(carro);

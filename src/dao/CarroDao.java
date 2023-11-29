@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Connection;
 
-import controllers.Credenciais;
 import models.Carro;
 import controllers.BancoDeDados;
 
@@ -56,7 +55,7 @@ public class CarroDao {
                     int ano = resultSet.getInt("ano");
 
                     // Criar um objeto Carro com os dados recuperados
-                    Carro carro = new Carro(marca, modelo, ano, Credenciais.getUsuarioLogado(), idCarro);
+                    Carro carro = new Carro(marca, modelo, ano, idCarro);
                     carrosDoUsuario.add(carro);
                 }
             }

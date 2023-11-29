@@ -1,20 +1,22 @@
 package views;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import dao.UsuarioDao;
 
 public class RegisterScreen {
-    public static void register() {
-        Scanner sc = new Scanner(System.in);
+    public static void register() throws IOException {
 
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Registrar");
         System.out.println("Digite seu nome!\n");
-        String nome = sc.nextLine();
+        String nome = in.readLine().toString();
         System.out.println("Digite seu e-mail!\n");
-        String email = sc.nextLine();
+        String email = in.readLine().toString();
         System.out.println("Digite sua senha!\n");
-        String senha = sc.nextLine();
+        String senha = in.readLine().toString();
 
         UsuarioDao.salvarUsuario(nome, email, senha);
     }

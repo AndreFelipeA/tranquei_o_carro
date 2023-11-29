@@ -24,11 +24,9 @@ public class Usuario {
         this.id_usuario = id_usuario;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id_usuario;
     }
-
 
     public String getNome() {
         return nome;
@@ -54,14 +52,8 @@ public class Usuario {
         this.carros.remove(carro);
     }
 
-    public void obterCarros() {
-        if (this.carros.size() == 0) {
-            System.out.println("Nenhum carro cadastrado para esse usuário!");
-        } else {
-            for (Carro carro : this.carros) {
-                System.out.println(carro);
-            }
-        }
+    public ArrayList<Carro> getCarros() {
+        return this.carros;
     }
 
     public String getSenha() {

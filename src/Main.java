@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import controllers.BancoDeDados;
 import views.CarsListScreen;
@@ -6,31 +8,24 @@ import views.LoginScreen;
 import views.RegisterScreen;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // display login options
         System.out.println("Digite 1 para login e 2 para se registrar!");
-        Scanner sc = new Scanner(System.in);
-        String choice = sc.nextLine();
-        Integer c = Integer.parseInt(choice);
+        Integer cmd = 0;
 
-        if (c.equals(1)) {
+        // Scanner sc = new Scanner(System.in);
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String choice = in.readLine().toString();
+        cmd = Integer.parseInt(choice);
+
+        if (cmd.equals(1)) {
 
             // login and list cars
-            boolean auth = LoginScreen.login();
-            while (auth) {
-                CarsListScreen.list();
-
-                // display car options
-                System.out.println("Digite 1 para Adicionar carro e 2 para Sair.");
-                String read = sc.nextLine();
-                Integer cmd = Integer.parseInt(read);
-                if (cmd.equals(1)) {
-                    CarsListScreen.newCar();
-                }
-
-                if (cmd.equals(2)) {
-                    auth = false;
+            if (LoginScreen.login()) {
+                boolean exit = false;
+                while (!exit) {
+                    exit = CarsListScreen.menu();
                 }
             }
 
