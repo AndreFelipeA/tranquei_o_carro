@@ -16,7 +16,7 @@ import dao.VerificaLocalizacaoDao;
 
 public class CarsListScreen {
 
-    public static boolean menu() throws IOException {
+    public static boolean display() throws IOException {
         CarsListScreen.listCars();
 
         // display car options
@@ -132,15 +132,12 @@ public class CarsListScreen {
         String ano = in.readLine().toString();
 
         Usuario user = Credenciais.getUsuarioLogado();
-        Carro car = new Carro(marca, modelo, Integer.parseInt(ano),null);
+        Carro car = new Carro(marca, modelo, Integer.parseInt(ano), null);
         CarroDao.adicionarCarro(marca, modelo, Integer.parseInt(ano), user.getId());
         int id = CarroDao.obterUltimoIdCarroInserido();
         car.setIdCarro(id);
         user.adicionarCarro(car);
     }
-
-    
-
 
     private static void deleteCar(Carro car) {
         Usuario user = Credenciais.getUsuarioLogado();
@@ -149,18 +146,15 @@ public class CarsListScreen {
 
     }
 
-    private static void obterLocalizacao(Carro car)
-    {
+    private static void obterLocalizacao(Carro car) {
         VerificaLocalizacao vl = car.getVerificaLocalizacao();
-        if(vl != null)
-        {
+        if (vl != null) {
             System.out.println(vl.obterLocalizacao());
         }
 
     }
 
-    private static void alterarLocalizacao(Carro car) throws IOException
-    {
+    private static void alterarLocalizacao(Carro car) throws IOException {
         VerificaLocalizacao vl = car.getVerificaLocalizacao();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Digite a latitude:");
@@ -173,18 +167,15 @@ public class CarsListScreen {
         VerificaLocalizacaoDao.salvarVerificaLocalizacao(latitude, longitude, car.getIdCarro());
     }
 
-    private static void obterInformaoes(Carro car)
-    {
+    private static void obterInformaoes(Carro car) {
         InformacaoDoCarro ic = car.getInformacaoDoCarro();
-        if(ic != null)
-        {
+        if (ic != null) {
             System.out.println(ic.obterInfo());
 
         }
     }
 
-    private static void alterarInformacoes(Carro car) throws IOException
-    {
+    private static void alterarInformacoes(Carro car) throws IOException {
         InformacaoDoCarro ic = car.getInformacaoDoCarro();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Digite a data de manutenção:");
@@ -195,11 +186,9 @@ public class CarsListScreen {
         String situacao = in.readLine().toString();
         ic.modificarInfo(dataManutencao, descricao, situacao);
 
-
     }
 
-    private static void editCar(Carro car) throws IOException
-    {
+    private static void editCar(Carro car) throws IOException {
         CarsListScreen.printCar(car);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Digite a marca do carro:");
@@ -208,7 +197,7 @@ public class CarsListScreen {
         String modelo = in.readLine().toString();
         System.out.println("Digite o ano do carro:");
         Integer ano = Integer.parseInt(in.readLine().toString());
-        
+
         car.setAno(ano);
         car.setMarca(marca);
         car.setModelo(modelo);

@@ -5,9 +5,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import controllers.Credenciais;
+import dao.UsuarioDao;
 
 public class LoginScreen {
-    public static boolean login() throws IOException {
+
+    public static boolean display() throws IOException {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("Digite 0 para Login, 1 para Registrar ou -1 para Sair.");
+
+            Integer cmd = 0;
+            String choice = in.readLine();
+            cmd = Integer.parseInt(choice);
+
+            switch (cmd) {
+                case 0:
+                    exit = LoginScreen.login();
+                    break;
+
+                case 1:
+                    LoginScreen.register();
+                    break;
+
+                case -1:
+                    return false;
+
+                default:
+                    System.out.println("Comando inválido!");
+                    break;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean login() throws IOException {
         System.out.println("\nLogin");
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -24,5 +59,21 @@ public class LoginScreen {
         }
 
         return auth;
+    }
+
+    private static void register() throws IOException {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("\nRegistrar");
+        System.out.println("Digite seu nome!");
+        String nome = in.readLine().toString();
+        System.out.println("Digite seu e-mail!");
+        String email = in.readLine().toString();
+        System.out.println("Digite sua senha!");
+        String senha = in.readLine().toString();
+        System.out.println();
+
+        UsuarioDao.salvarUsuario(nome, email, senha);
+        System.out.println("Usuário registrado com sucesso!");
     }
 }

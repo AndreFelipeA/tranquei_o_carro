@@ -8,6 +8,7 @@ import java.sql.Statement;
 public class BancoDeDados {
     private static BancoDeDados instance;
     private Connection connection;
+    private static Boolean connected = false;
 
     private BancoDeDados() {
         // Configuração do banco de dados SQLite
@@ -17,6 +18,7 @@ public class BancoDeDados {
         try {
             // Conectar ao banco de dados
             connection = DriverManager.getConnection(url);
+            BancoDeDados.connected = true;
 
             // Criar a tabela "usuarios" se não existir
             Statement statement = connection.createStatement();
@@ -45,7 +47,7 @@ public class BancoDeDados {
 
             // Criar a tabela "InformacaoDoCarro" se não existir
             statement.execute("CREATE TABLE IF NOT EXISTS InformacaoDoCarro (" +
-                    "id_informacao INTEGER 1PRIMARY KEY AUTOINCREMENT," +
+                    "id_informacao INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "situacao TEXT," +
                     "descricao TEXT," +
                     "dataManutencao TEXT," +
@@ -74,5 +76,9 @@ public class BancoDeDados {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Boolean isConnected() {
+        return BancoDeDados.connected;
     }
 }
