@@ -9,7 +9,9 @@ import controllers.ControlaTrancamento;
 import controllers.Credenciais;
 import models.Carro;
 import models.Usuario;
+import models.VerificaLocalizacao;
 import dao.CarroDao;
+import dao.VerificaLocalizacaoDao;
 
 public class CarsListScreen {
 
@@ -55,7 +57,7 @@ public class CarsListScreen {
             CarsListScreen.printCar(car);
             System.out.println(
                     "Digite 0 para Editar, 1 para Excluir, 2 para " + status
-                            + ", 3 para obter localização ou -1 para Sair.");
+                            + ", 3 para obter localização, 4 para alterar localização ou -1 para Sair.");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             Integer cmd = 0;
@@ -68,13 +70,18 @@ public class CarsListScreen {
                     break;
 
                 case 1:
-                    // CarsListScreen.deleteCar(car);
+                    CarsListScreen.deleteCar(car);
                     break;
 
                 case 2:
                     controlaTrancamento.switchStatus();
                     break;
-
+                case 3:
+                    obterLocalizacao(car);
+                    break;
+                case 4:
+                    alterarLocalizacao(car);
+                    break;
                 case -1:
                     exit = true;
                     break;
@@ -118,9 +125,41 @@ public class CarsListScreen {
         String ano = in.readLine().toString();
 
         Usuario user = Credenciais.getUsuarioLogado();
-        Carro car = new Carro(marca, modelo, Integer.parseInt(ano));
+        Carro car = new Carro(marca, modelo, Integer.parseInt(ano),null);
         CarroDao.adicionarCarro(marca, modelo, Integer.parseInt(ano), user.getId());
 
         user.adicionarCarro(car);
+    }
+
+
+    private static void deleteCar(Carro car) {
+        Usuario user = Credenciais.getUsuarioLogado();
+        CarroDao.deletarCarro(car.getIdCarro());
+        user.deleteCar(car);
+
+    }
+
+    private static void obterLocalizacao(Carro car)
+    {
+        VerificaLocalizacao vl = car.getVerificaLocalizacao();
+        if(vl != null)
+        {
+            System.out.println(vl.obterLocalizacao());
+        }
+
+    }
+
+    private static void alterarLocalizacao(Carro car) throws IOException
+    {
+        VerificaLocalizacao vl = car.getVerificaLocalizacao();
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Digite a latitude:");
+        String x = in.readLine().toString();
+        System.out.println("Digite a longitude:");
+        String y = in.readLine().toString();
+        Double latitude = Double.parseDouble(x);
+        Double longitude = Double.parseDouble(y);
+        vl.atualizarLocalizacao(latitude, longitude);
+        VerificaLocalizacaoDao.salvarVerificaLocalizacao(latitude, longitude, car.getIdCarro());
     }
 }

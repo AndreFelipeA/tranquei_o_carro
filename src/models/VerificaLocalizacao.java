@@ -1,8 +1,14 @@
-package controllers;
+package models;
 
 public class VerificaLocalizacao {
     private double latitude;
     private double longitude;
+
+    public VerificaLocalizacao(double latitude, double longitude)
+    {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public void atualizarLocalizacao(double latitude, double longitude) {
         this.latitude = latitude;
@@ -10,6 +16,10 @@ public class VerificaLocalizacao {
     }
 
     public String obterLocalizacao() {
+        if(latitude == 0.0 & longitude == 0.0)
+        {
+            return "Carro não tem Localização cadastrada";
+        }
         return "Latitude: " + latitude + " Longitude: " + longitude;
     }
 

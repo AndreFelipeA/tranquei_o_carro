@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Optional;
+
 import controllers.ControlaTrancamento;
 
 public class Carro {
@@ -8,22 +10,39 @@ public class Carro {
     private Integer ano;
     private Integer idCarro;
     private ControlaTrancamento controlaTrancamento;
-
-    public Carro(String marca, String modelo, Integer ano, Integer idCarro) {
+    private VerificaLocalizacao verificaLocalizacao;
+    public Carro(String marca, String modelo, Integer ano, Integer idCarro, Optional<VerificaLocalizacao> verificaLocalizacao) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.idCarro = idCarro;
 
         this.controlaTrancamento = new ControlaTrancamento(false);
+
+        this.verificaLocalizacao = verificaLocalizacao.orElse(null);
+        
+
+    }
+    public Carro(String marca, String modelo, Integer ano, Integer idCarro, VerificaLocalizacao verificaLocalizacao) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.idCarro = idCarro;
+
+        this.controlaTrancamento = new ControlaTrancamento(false);
+
+        this.verificaLocalizacao = verificaLocalizacao;
+        
+
     }
 
-    public Carro(String marca, String modelo, int ano) {
+    public Carro(String marca, String modelo, int ano,Optional<VerificaLocalizacao> verificaLocalizacao) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
 
         this.controlaTrancamento = new ControlaTrancamento(false);
+        this.verificaLocalizacao = verificaLocalizacao.orElse(null);
     }
 
     public String getMarca() {
@@ -71,4 +90,10 @@ public class Carro {
                 ", idCarro=" + idCarro +
                 '}';
     }
+
+    public VerificaLocalizacao getVerificaLocalizacao()
+    {
+        return verificaLocalizacao;
+    }
+    
 }

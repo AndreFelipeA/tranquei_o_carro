@@ -60,4 +60,9 @@ public class Usuario {
         return senha;
     }
 
+    public void deleteCar(Carro car)
+    {
+        carros.remove(car);
+    }
+
 }

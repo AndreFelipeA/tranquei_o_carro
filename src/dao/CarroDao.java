@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import models.Carro;
+import models.VerificaLocalizacao;
 import controllers.BancoDeDados;
 
 public class CarroDao {
@@ -23,7 +24,7 @@ public class CarroDao {
                 preparedStatement.setString(2, modelo);
                 preparedStatement.setInt(3, ano);
                 preparedStatement.setInt(4, idProprietario);
-
+                
                 // Executar a inserção
                 preparedStatement.executeUpdate();
             }
@@ -39,7 +40,11 @@ public class CarroDao {
             Connection connection = BancoDeDados.getInstance().getConnection();
 
             // Preparar a declaração SQL para a busca de carros pelo ID do proprietário
-            String sql = "SELECT * FROM carros WHERE proprietario_id = ?";
+            String sql = "SELECT carros.*, VerificaLocalizacao.longitude, VerificaLocalizacao.latitude " +
+                         "FROM carros " +
+                         "LEFT JOIN VerificaLocalizacao ON carros.id_carro = VerificaLocalizacao.carro_id " +
+                         "WHERE carros.proprietario_id = ?";
+            
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 // Configurar os parâmetros da declaração SQL
                 preparedStatement.setInt(1, idProprietario);
@@ -54,8 +59,13 @@ public class CarroDao {
                     String modelo = resultSet.getString("modelo");
                     int ano = resultSet.getInt("ano");
 
-                    // Criar um objeto Carro com os dados recuperados
-                    Carro carro = new Carro(marca, modelo, ano, idCarro);
+                    // Recuperar a localização do ResultSet
+                    Double longitude = resultSet.getDouble("longitude");
+                    Double latitude = resultSet.getDouble("latitude");
+                    VerificaLocalizacao localizacao = new VerificaLocalizacao(latitude, longitude);
+
+                    // Criar um objeto Carro com os dados recuperados, incluindo a Localizacao
+                    Carro carro = new Carro(marca, modelo, ano,idCarro,localizacao);
                     carrosDoUsuario.add(carro);
                 }
             }
@@ -64,5 +74,22 @@ public class CarroDao {
         }
 
         return carrosDoUsuario;
+    }
+
+    public static void deletarCarro(int idCarro) {
+        try {
+            // Preparar a declaração SQL para a exclusão de um carro
+            String sql = "DELETE FROM carros WHERE id_carro = ?";
+            Connection connection = BancoDeDados.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                // Configurar os parâmetros da declaração SQL
+                preparedStatement.setInt(1, idCarro);
+
+                // Executar a exclusão
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

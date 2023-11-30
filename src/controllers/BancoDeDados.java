@@ -11,11 +11,7 @@ public class BancoDeDados {
 
     private BancoDeDados() {
         // Configuração do banco de dados SQLite
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         String url = "jdbc:sqlite:db/banco_de_dados.db";
 
         try {
@@ -42,14 +38,14 @@ public class BancoDeDados {
             // Criar a tabela "VerificaLocalizacao" se não existir
             statement.execute("CREATE TABLE IF NOT EXISTS VerificaLocalizacao (" +
                     "id_localizacao INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "longitude TEXT," +
-                    "latitude TEXT," +
+                    "longitude REAL," +
+                    "latitude REAL," +
                     "carro_id INTEGER," +
                     "FOREIGN KEY (carro_id) REFERENCES carros(id_carro))");
 
             // Criar a tabela "InformacaoDoCarro" se não existir
             statement.execute("CREATE TABLE IF NOT EXISTS InformacaoDoCarro (" +
-                    "id_informacao INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "id_informacao INTEGER 1PRIMARY KEY AUTOINCREMENT," +
                     "situacao TEXT," +
                     "descricao TEXT," +
                     "dataManutencao TEXT," +
