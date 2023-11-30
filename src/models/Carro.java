@@ -104,5 +104,10 @@ public class Carro {
     {
         return informacaoDoCarro;
     }
+
+    public void setInformacaoDoCarro(InformacaoDoCarro informacaoDoCarro)
+    {
+        this.informacaoDoCarro = informacaoDoCarro;
+    }
     
 }

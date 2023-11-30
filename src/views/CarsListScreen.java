@@ -85,6 +85,7 @@ public class CarsListScreen {
                     break;
                 case 5:
                     CarsListScreen.obterInformaoes(car);
+                    break;
                 case 6:
                     CarsListScreen.alterarInformacoes(car);
                     break;
@@ -175,8 +176,9 @@ public class CarsListScreen {
         }
     }
 
-    private static void alterarInformacoes(Carro car) throws IOException {
-        InformacaoDoCarro ic = car.getInformacaoDoCarro();
+    private static void alterarInformacoes(Carro car) throws IOException
+    {
+        InformacaoDoCarro ic = new InformacaoDoCarro(null, null, null);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Digite a data de manutenção:");
         String dataManutencao = in.readLine().toString();
@@ -185,6 +187,7 @@ public class CarsListScreen {
         System.out.println("Digite a Situacao:");
         String situacao = in.readLine().toString();
         ic.modificarInfo(dataManutencao, descricao, situacao);
+
 
     }
 
