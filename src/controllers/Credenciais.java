@@ -10,6 +10,10 @@ public class Credenciais {
     public static boolean verificaCredenciais(String email, String senha) {
 
         Usuario user = UsuarioDao.buscarUsuarioPorEmail(email);
+        if (user == null) {
+            return false;
+        }
+        
         System.out.println(user.getSenha());
         if (senha.equals(user.getSenha())) {
             usuarioLogado = user;

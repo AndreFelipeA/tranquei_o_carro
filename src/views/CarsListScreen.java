@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import controllers.ControlaTrancamento;
 import controllers.Credenciais;
+import controllers.VerificaLocalizacao;
 import models.Carro;
 import models.InformacaoDoCarro;
 import models.Usuario;
-import models.VerificaLocalizacao;
 import dao.CarroDao;
 import dao.VerificaLocalizacaoDao;
 
@@ -67,7 +67,7 @@ public class CarsListScreen {
 
             switch (cmd) {
                 case 0:
-                    //CarsListScreen.editCar(car);
+                    CarsListScreen.editCar(car);
                     break;
 
                 case 1:
@@ -78,13 +78,13 @@ public class CarsListScreen {
                     controlaTrancamento.switchStatus();
                     break;
                 case 3:
-                    obterLocalizacao(car);
+                    CarsListScreen.obterLocalizacao(car);
                     break;
                 case 4:
-                    alterarLocalizacao(car);
+                    CarsListScreen.alterarLocalizacao(car);
                     break;
                 case 5:
-                    alterarInformacoes(car);
+                    CarsListScreen.alterarInformacoes(car);
                     break;
 
                 case -1:
@@ -181,5 +181,22 @@ public class CarsListScreen {
         ic.modificarInfo(dataManutencao, descricao, situacao);
 
 
+    }
+
+    private static void editCar(Carro car) throws IOException
+    {
+        CarsListScreen.printCar(car);
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Digite a marca do carro:");
+        String marca = in.readLine().toString();
+        System.out.println("Digite o modelo do carro:");
+        String modelo = in.readLine().toString();
+        System.out.println("Digite o ano do carro:");
+        Integer ano = Integer.parseInt(in.readLine().toString());
+        
+        car.setAno(ano);
+        car.setMarca(marca);
+        car.setModelo(modelo);
+        CarroDao.atualizarCarro(car.getIdCarro(), marca, modelo, ano);
     }
 }

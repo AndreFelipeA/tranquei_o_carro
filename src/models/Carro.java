@@ -3,6 +3,7 @@ package models;
 import java.util.Optional;
 
 import controllers.ControlaTrancamento;
+import controllers.VerificaLocalizacao;
 
 public class Carro {
     private String marca;
@@ -12,6 +13,7 @@ public class Carro {
     private ControlaTrancamento controlaTrancamento;
     private VerificaLocalizacao verificaLocalizacao;
     private InformacaoDoCarro informacaoDoCarro;
+
     public Carro(String marca, String modelo, Integer ano, Integer idCarro, Optional<VerificaLocalizacao> verificaLocalizacao) {
         this.marca = marca;
         this.modelo = modelo;
@@ -25,6 +27,7 @@ public class Carro {
         
 
     }
+
     public Carro(String marca, String modelo, Integer ano, Integer idCarro, VerificaLocalizacao verificaLocalizacao, InformacaoDoCarro informacaoDoCarro) {
         this.marca = marca;
         this.modelo = modelo;

@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 public class VerificaLocalizacao {
     private double latitude;
