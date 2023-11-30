@@ -57,7 +57,7 @@ public class CarsListScreen {
             // display car options
             CarsListScreen.printCar(car);
             System.out.println(
-                    "Digite 1 para Excluir, 2 para " + status
+                    "Digite 0 para Editar, 1 para Excluir, 2 para " + status
                             + ", 3 para obter localização, 4 para alterar localização, 5 para obter Informaões e 6 para Alterar Informações ou -1 para Sair.");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -66,6 +66,10 @@ public class CarsListScreen {
             cmd = Integer.parseInt(choice);
 
             switch (cmd) {
+                case 0:
+                    CarsListScreen.editCar(car);
+                    break;
+
                 case 1:
                     CarsListScreen.deleteCar(car);
                     break;
@@ -74,16 +78,15 @@ public class CarsListScreen {
                     controlaTrancamento.switchStatus();
                     break;
                 case 3:
-                    obterLocalizacao(car);
+                    CarsListScreen.obterLocalizacao(car);
                     break;
                 case 4:
-                    alterarLocalizacao(car);
+                    CarsListScreen.alterarLocalizacao(car);
                     break;
                 case 5:
-                    obterInformaoes(car);
-                    break;
+                    CarsListScreen.obterInformaoes(car);
                 case 6:
-                    alterarInformacoes(car);
+                    CarsListScreen.alterarInformacoes(car);
                     break;
 
                 case -1:
@@ -193,5 +196,22 @@ public class CarsListScreen {
         ic.modificarInfo(dataManutencao, descricao, situacao);
 
 
+    }
+
+    private static void editCar(Carro car) throws IOException
+    {
+        CarsListScreen.printCar(car);
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Digite a marca do carro:");
+        String marca = in.readLine().toString();
+        System.out.println("Digite o modelo do carro:");
+        String modelo = in.readLine().toString();
+        System.out.println("Digite o ano do carro:");
+        Integer ano = Integer.parseInt(in.readLine().toString());
+        
+        car.setAno(ano);
+        car.setMarca(marca);
+        car.setModelo(modelo);
+        CarroDao.atualizarCarro(car.getIdCarro(), marca, modelo, ano);
     }
 }
