@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import controllers.ControlaTrancamento;
 import controllers.Credenciais;
 import models.Carro;
+import models.InformacaoDoCarro;
 import models.Usuario;
 import models.VerificaLocalizacao;
 import dao.CarroDao;
@@ -66,7 +67,7 @@ public class CarsListScreen {
 
             switch (cmd) {
                 case 0:
-                    // CarsListScreen.editCar(car);
+                    //CarsListScreen.editCar(car);
                     break;
 
                 case 1:
@@ -82,6 +83,10 @@ public class CarsListScreen {
                 case 4:
                     alterarLocalizacao(car);
                     break;
+                case 5:
+                    alterarInformacoes(car);
+                    break;
+
                 case -1:
                     exit = true;
                     break;
@@ -161,5 +166,20 @@ public class CarsListScreen {
         Double longitude = Double.parseDouble(y);
         vl.atualizarLocalizacao(latitude, longitude);
         VerificaLocalizacaoDao.salvarVerificaLocalizacao(latitude, longitude, car.getIdCarro());
+    }
+
+    private static void alterarInformacoes(Carro car) throws IOException
+    {
+        InformacaoDoCarro ic = car.getInformacaoDoCarro();
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Digite a data de manutenção:");
+        String dataManutencao = in.readLine().toString();
+        System.out.println("Digite a Descricao:");
+        String descricao = in.readLine().toString();
+        System.out.println("Digite a Situacao:");
+        String situacao = in.readLine().toString();
+        ic.modificarInfo(dataManutencao, descricao, situacao);
+
+
     }
 }

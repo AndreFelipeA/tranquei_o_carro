@@ -11,6 +11,7 @@ public class Carro {
     private Integer idCarro;
     private ControlaTrancamento controlaTrancamento;
     private VerificaLocalizacao verificaLocalizacao;
+    private InformacaoDoCarro informacaoDoCarro;
     public Carro(String marca, String modelo, Integer ano, Integer idCarro, Optional<VerificaLocalizacao> verificaLocalizacao) {
         this.marca = marca;
         this.modelo = modelo;
@@ -20,10 +21,11 @@ public class Carro {
         this.controlaTrancamento = new ControlaTrancamento(false);
 
         this.verificaLocalizacao = verificaLocalizacao.orElse(null);
+        this.informacaoDoCarro = null;
         
 
     }
-    public Carro(String marca, String modelo, Integer ano, Integer idCarro, VerificaLocalizacao verificaLocalizacao) {
+    public Carro(String marca, String modelo, Integer ano, Integer idCarro, VerificaLocalizacao verificaLocalizacao, InformacaoDoCarro informacaoDoCarro) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
@@ -32,7 +34,7 @@ public class Carro {
         this.controlaTrancamento = new ControlaTrancamento(false);
 
         this.verificaLocalizacao = verificaLocalizacao;
-        
+        this.informacaoDoCarro = informacaoDoCarro;
 
     }
 
@@ -94,6 +96,11 @@ public class Carro {
     public VerificaLocalizacao getVerificaLocalizacao()
     {
         return verificaLocalizacao;
+    }
+
+    public InformacaoDoCarro getInformacaoDoCarro()
+    {
+        return informacaoDoCarro;
     }
     
 }

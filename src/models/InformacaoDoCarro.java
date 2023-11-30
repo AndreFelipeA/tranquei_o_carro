@@ -5,15 +5,51 @@ public class InformacaoDoCarro {
   private String descricao;
   private String situacao;
 
-  public void adicionarInformacao(String info) {
-
+  public InformacaoDoCarro(String dataManutencao, String descricao, String situacao)
+  {
+    this.dataManutencao = dataManutencao;
+    this.descricao = descricao;
+    this.situacao = situacao;
   }
+
+  public String getDataManutencao()
+  {
+    return this.dataManutencao;
+  }
+
+  public String getDecricao()
+  {
+    return this.descricao;
+  }
+
+  public String getSituacao()
+  {
+    return this.situacao;
+  }
+
+  public void setDataManutencao(String dataManutencao)
+  {
+    this.dataManutencao = dataManutencao;
+  }
+
+  public void setDescricao(String descricao)
+  {
+    this.descricao = descricao;
+  }
+
+  public void setSituacao(String situacao)
+  {
+    this.situacao = situacao;
+  }
+
 
   public String obterInfo() {
-    return "";
+    return dataManutencao + descricao + situacao;
   }
 
-  public void modificarInfo() {
-
+  public void modificarInfo(String dataManutencao, String descricao, String situacao) {
+    this.dataManutencao = dataManutencao;
+    this.descricao = descricao;
+    this.situacao = situacao;
   }
 }

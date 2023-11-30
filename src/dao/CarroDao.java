@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import models.Carro;
+import models.InformacaoDoCarro;
 import models.VerificaLocalizacao;
 import controllers.BancoDeDados;
 
@@ -40,11 +41,13 @@ public class CarroDao {
             Connection connection = BancoDeDados.getInstance().getConnection();
 
             // Preparar a declaração SQL para a busca de carros pelo ID do proprietário
-            String sql = "SELECT carros.*, VerificaLocalizacao.longitude, VerificaLocalizacao.latitude " +
+            String sql = "SELECT carros.*, VerificaLocalizacao.longitude, VerificaLocalizacao.latitude, " +
+                         "InformacaoDoCarro.situacao, InformacaoDoCarro.descricao, InformacaoDoCarro.dataManutencao " +
                          "FROM carros " +
                          "LEFT JOIN VerificaLocalizacao ON carros.id_carro = VerificaLocalizacao.carro_id " +
+                         "LEFT JOIN InformacaoDoCarro ON carros.id_carro = InformacaoDoCarro.carro_id " +
                          "WHERE carros.proprietario_id = ?";
-            
+
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 // Configurar os parâmetros da declaração SQL
                 preparedStatement.setInt(1, idProprietario);
@@ -52,20 +55,32 @@ public class CarroDao {
                 // Executar a consulta
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-                // Iterar sobre os resultados e adicionar carros à lista
+                // Mapear os resultados para objetos Carro
                 while (resultSet.next()) {
                     int idCarro = resultSet.getInt("id_carro");
                     String marca = resultSet.getString("marca");
                     String modelo = resultSet.getString("modelo");
                     int ano = resultSet.getInt("ano");
 
-                    // Recuperar a localização do ResultSet
+                    // Recuperar informações da tabela VerificaLocalizacao
                     Double longitude = resultSet.getDouble("longitude");
                     Double latitude = resultSet.getDouble("latitude");
                     VerificaLocalizacao localizacao = new VerificaLocalizacao(latitude, longitude);
 
-                    // Criar um objeto Carro com os dados recuperados, incluindo a Localizacao
-                    Carro carro = new Carro(marca, modelo, ano,idCarro,localizacao);
+                    // Recuperar informações da tabela InformacaoDoCarro
+                    String situacao = resultSet.getString("situacao");
+                    String descricao = resultSet.getString("descricao");
+                    String dataManutencao = resultSet.getString("dataManutencao");
+                    InformacaoDoCarro informacao = null;
+                    if (situacao != null && descricao != null && dataManutencao != null) {
+                        informacao = new InformacaoDoCarro(situacao, descricao, dataManutencao);
+                        
+                    }
+                    // Criar um objeto Carro com os dados recuperados
+                    Carro carro = new Carro(marca, modelo, ano,idCarro,localizacao,informacao);
+                    
+                    // Adicionar InformacaoDoCarro ao Carro, se houver
+
                     carrosDoUsuario.add(carro);
                 }
             }
