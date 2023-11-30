@@ -43,8 +43,8 @@ public class InformacaoDoCarro {
   }
 
 
-  public String obterInfo() {
-    return dataManutencao + descricao + situacao;
+  public String obterInfo() {       
+    return "Informações\n" + "DataManutenção: " + dataManutencao + "\n" + "Descrição: " + descricao + "\n" + "Situação: " + situacao;
   }
 
   public void modificarInfo(String dataManutencao, String descricao, String situacao) {

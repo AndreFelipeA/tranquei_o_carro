@@ -45,7 +45,7 @@ public class BancoDeDados {
 
             // Criar a tabela "InformacaoDoCarro" se não existir
             statement.execute("CREATE TABLE IF NOT EXISTS InformacaoDoCarro (" +
-                    "id_informacao INTEGER 1PRIMARY KEY AUTOINCREMENT," +
+                    "id_informacao INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "situacao TEXT," +
                     "descricao TEXT," +
                     "dataManutencao TEXT," +
