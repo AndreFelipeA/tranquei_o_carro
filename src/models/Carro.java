@@ -38,13 +38,13 @@ public class Carro {
 
     }
 
-    public Carro(String marca, String modelo, int ano,Optional<VerificaLocalizacao> verificaLocalizacao) {
+    public Carro(String marca, String modelo, int ano,VerificaLocalizacao verificaLocalizacao) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
 
         this.controlaTrancamento = new ControlaTrancamento(false);
-        this.verificaLocalizacao = verificaLocalizacao.orElse(null);
+        this.verificaLocalizacao = verificaLocalizacao;
     }
 
     public String getMarca() {

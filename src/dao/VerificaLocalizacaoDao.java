@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.BancoDeDados;
-import models.Usuario;
-import models.Carro;
 import models.VerificaLocalizacao;
 public class VerificaLocalizacaoDao {
     public static void salvarVerificaLocalizacao(Double longitude, Double latitude, int idCarro) {

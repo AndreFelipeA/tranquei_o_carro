@@ -107,4 +107,30 @@ public class CarroDao {
             e.printStackTrace();
         }
     }
+
+    public static int obterUltimoIdCarroInserido() {
+        int ultimoIdCarro = -1;
+
+        try {
+            Connection connection = BancoDeDados.getInstance().getConnection();
+
+            // Preparar a declaração SQL para obter o último ID de carro inserido
+            String sql = "SELECT last_insert_rowid() as ultimo_id_carro";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                // Executar a consulta
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                // Obter o último ID de carro inserido
+                if (resultSet.next()) {
+                    ultimoIdCarro = resultSet.getInt("ultimo_id_carro");
+                } else {
+                    throw new SQLException("Nenhum ID de carro encontrado.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ultimoIdCarro;
+    }
 }

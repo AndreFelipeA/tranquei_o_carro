@@ -57,8 +57,8 @@ public class CarsListScreen {
             // display car options
             CarsListScreen.printCar(car);
             System.out.println(
-                    "Digite 0 para Editar, 1 para Excluir, 2 para " + status
-                            + ", 3 para obter localização, 4 para alterar localização ou -1 para Sair.");
+                    "Digite 1 para Excluir, 2 para " + status
+                            + ", 3 para obter localização, 4 para alterar localização, 5 para obter Informaões e 6 para Alterar Informações ou -1 para Sair.");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             Integer cmd = 0;
@@ -66,10 +66,6 @@ public class CarsListScreen {
             cmd = Integer.parseInt(choice);
 
             switch (cmd) {
-                case 0:
-                    //CarsListScreen.editCar(car);
-                    break;
-
                 case 1:
                     CarsListScreen.deleteCar(car);
                     break;
@@ -84,6 +80,9 @@ public class CarsListScreen {
                     alterarLocalizacao(car);
                     break;
                 case 5:
+                    obterInformaoes(car);
+                    break;
+                case 6:
                     alterarInformacoes(car);
                     break;
 
@@ -132,15 +131,18 @@ public class CarsListScreen {
         Usuario user = Credenciais.getUsuarioLogado();
         Carro car = new Carro(marca, modelo, Integer.parseInt(ano),null);
         CarroDao.adicionarCarro(marca, modelo, Integer.parseInt(ano), user.getId());
-
+        int id = CarroDao.obterUltimoIdCarroInserido();
+        car.setIdCarro(id);
         user.adicionarCarro(car);
     }
+
+    
 
 
     private static void deleteCar(Carro car) {
         Usuario user = Credenciais.getUsuarioLogado();
         CarroDao.deletarCarro(car.getIdCarro());
-        user.deleteCar(car);
+        user.removerCarro(car);
 
     }
 
@@ -166,6 +168,16 @@ public class CarsListScreen {
         Double longitude = Double.parseDouble(y);
         vl.atualizarLocalizacao(latitude, longitude);
         VerificaLocalizacaoDao.salvarVerificaLocalizacao(latitude, longitude, car.getIdCarro());
+    }
+
+    private static void obterInformaoes(Carro car)
+    {
+        InformacaoDoCarro ic = car.getInformacaoDoCarro();
+        if(ic != null)
+        {
+            System.out.println(ic.obterInfo());
+
+        }
     }
 
     private static void alterarInformacoes(Carro car) throws IOException
