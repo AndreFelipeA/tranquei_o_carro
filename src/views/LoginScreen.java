@@ -13,7 +13,8 @@ public class LoginScreen {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-        boolean exit = false;
+        Boolean exit = false;
+        Boolean auth = false;
         while (!exit) {
             System.out.println("Digite 0 para Login, 1 para Registrar ou -1 para Sair.");
 
@@ -23,7 +24,8 @@ public class LoginScreen {
 
             switch (cmd) {
                 case 0:
-                    exit = LoginScreen.login();
+                    auth = LoginScreen.login();
+                    exit = auth;
                     break;
 
                 case 1:
@@ -31,7 +33,9 @@ public class LoginScreen {
                     break;
 
                 case -1:
-                    return false;
+                    exit = true;
+                    auth = false;
+                    break;
 
                 default:
                     System.out.println("Comando inválido!");
@@ -39,7 +43,7 @@ public class LoginScreen {
             }
         }
 
-        return false;
+        return auth;
     }
 
     private static boolean login() throws IOException {

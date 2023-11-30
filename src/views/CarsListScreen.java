@@ -16,32 +16,36 @@ import dao.VerificaLocalizacaoDao;
 
 public class CarsListScreen {
 
-    public static boolean display() throws IOException {
-        CarsListScreen.listCars();
+    public static void display() throws IOException {
+        Boolean exit = false;
 
-        // display car options
-        System.out.println("Digite 0 para Adicionar carro, -1 para Sair ou selecione um carro.");
+        while (!exit) {
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        Integer cmd = 0;
-        String choice = in.readLine();
-        cmd = Integer.parseInt(choice);
+            CarsListScreen.listCars();
 
-        switch (cmd) {
-            case 0:
-                CarsListScreen.newCar();
-                break;
+            // display car options
+            System.out.println("Digite 0 para Adicionar carro, -1 para Sair ou selecione um carro.");
 
-            case -1:
-                return true;
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            Integer cmd = 0;
+            String choice = in.readLine();
+            cmd = Integer.parseInt(choice);
 
-            default:
-                Carro selectedCar = Credenciais.getUsuarioLogado().getCarros().get(cmd - 1);
-                CarsListScreen.carDisplay(selectedCar);
-                break;
+            switch (cmd) {
+                case 0:
+                    CarsListScreen.newCar();
+                    break;
+
+                case -1:
+                    exit = true;
+                    break;
+
+                default:
+                    Carro selectedCar = Credenciais.getUsuarioLogado().getCarros().get(cmd - 1);
+                    CarsListScreen.carDisplay(selectedCar);
+                    break;
+            }
         }
-
-        return false;
     }
 
     private static void carDisplay(Carro car) throws IOException {
@@ -176,8 +180,7 @@ public class CarsListScreen {
         }
     }
 
-    private static void alterarInformacoes(Carro car) throws IOException
-    {
+    private static void alterarInformacoes(Carro car) throws IOException {
         InformacaoDoCarro ic = new InformacaoDoCarro(null, null, null);
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Digite a data de manutenção:");
@@ -187,7 +190,6 @@ public class CarsListScreen {
         System.out.println("Digite a Situacao:");
         String situacao = in.readLine().toString();
         ic.modificarInfo(dataManutencao, descricao, situacao);
-
 
     }
 
