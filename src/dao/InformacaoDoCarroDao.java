@@ -8,7 +8,7 @@ import controllers.BancoDeDados;
 
 
 public class InformacaoDoCarroDao {
-    public void salvarInformacaoDoCarro(String situacao, String descricao, String dataManutencao, int idCarro) {
+    public static void salvarInformacaoDoCarro(String situacao, String descricao, String dataManutencao, int idCarro) {
         try {
             // Preparar a declaração SQL para a inserção de uma InformacaoDoCarro
             Connection connection = BancoDeDados.getInstance().getConnection();
@@ -22,7 +22,7 @@ public class InformacaoDoCarroDao {
                 preparedStatement.setInt(4, idCarro);
 
                 // Executar a inserção
-                preparedStatement.executeUpdate();
+                preparedStatement.executeQuery();
             }
         } catch (SQLException e) {
             e.printStackTrace();

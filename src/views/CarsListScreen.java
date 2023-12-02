@@ -12,6 +12,7 @@ import models.InformacaoDoCarro;
 import models.Usuario;
 import models.VerificaLocalizacao;
 import dao.CarroDao;
+import dao.InformacaoDoCarroDao;
 import dao.VerificaLocalizacaoDao;
 
 public class CarsListScreen {
@@ -20,7 +21,6 @@ public class CarsListScreen {
         Boolean exit = false;
 
         while (!exit) {
-
             CarsListScreen.listCars();
 
             // display car options
@@ -42,6 +42,7 @@ public class CarsListScreen {
 
                 default:
                     Carro selectedCar = Credenciais.getUsuarioLogado().getCarros().get(cmd - 1);
+                    System.out.print("\033[H\033[2J");
                     CarsListScreen.carDisplay(selectedCar);
                     break;
             }
@@ -59,9 +60,10 @@ public class CarsListScreen {
             String status = controlaTrancamento.getTrancado() ? "destrancar" : "trancar";
 
             // display car options
+            System.out.println("Selecioanado: ");
             CarsListScreen.printCar(car);
             System.out.println(
-                    "Digite 0 para Editar, 1 para Excluir, 2 para " + status
+                    "\nDigite 0 para Editar, 1 para Excluir, 2 para " + status
                             + ", 3 para obter localização, 4 para alterar localização, 5 para obter Informaões e 6 para Alterar Informações ou -1 para Sair.");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -76,9 +78,11 @@ public class CarsListScreen {
 
                 case 1:
                     CarsListScreen.deleteCar(car);
+                    exit = true;
                     break;
 
                 case 2:
+                    System.out.print("\033[H\033[2J");
                     controlaTrancamento.switchStatus();
                     break;
                 case 3:
@@ -88,6 +92,7 @@ public class CarsListScreen {
                     CarsListScreen.alterarLocalizacao(car);
                     break;
                 case 5:
+                    System.out.print("\033[H\033[2J");
                     CarsListScreen.obterInformaoes(car);
                     break;
                 case 6:
@@ -105,20 +110,29 @@ public class CarsListScreen {
     }
 
     private static void printCar(Carro car) {
-        System.out.println("--------------------------");
-        System.out.println(car.getModelo());
-        System.out.println(car.getMarca());
-        System.out.println("\nAno: " + car.getAno());
-        System.out.println("ID: " + car.getIdCarro());
-        System.out.println("--------------------------");
+        String status = car.getControlaTrancamento().getTrancado() ? "Trancado" : "Destrancado";
+        System.out.println("--------------------------\n" + 
+                            "Modelo: " + car.getModelo() +
+                            "\nMarca: " + car.getMarca() +
+                            "\nAno: " + car.getAno() +
+                            "\nID: " + car.getIdCarro() +
+                            "\nStatus: " + status +
+                            "\n--------------------------"
+                        );
     }
 
     private static void listCars() {
-        System.out.println("\nLista de carros");
-
+        
         Usuario user = Credenciais.getUsuarioLogado();
-
         ArrayList<Carro> carros = user.getCarros();
+
+        if (carros.size() < 1)
+        {
+            System.out.println("Nenhum carro registrado para esse usuário.\n");
+            return;
+        }
+        
+        System.out.println("Lista de carros:\n");
         for (Integer i = 0; i < carros.size(); i++) {
             System.out.println((i + 1) + ":");
             CarsListScreen.printCar(carros.get(i));
@@ -142,6 +156,9 @@ public class CarsListScreen {
         int id = CarroDao.obterUltimoIdCarroInserido();
         car.setIdCarro(id);
         user.adicionarCarro(car);
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("Novo carro adicionado com sucesso.\n");
     }
 
     private static void deleteCar(Carro car) {
@@ -149,12 +166,15 @@ public class CarsListScreen {
         CarroDao.deletarCarro(car.getIdCarro());
         user.removerCarro(car);
 
+        System.out.print("\033[H\033[2J");
+        System.out.println("Carro " + car.getMarca() + " excluído com sucesso.\n");
     }
 
     private static void obterLocalizacao(Carro car) {
+        System.out.print("\033[H\033[2J");
         VerificaLocalizacao vl = car.getVerificaLocalizacao();
         if (vl != null) {
-            System.out.println(vl.obterLocalizacao());
+            System.out.println(vl.obterLocalizacao() + "\n");
         }
 
     }
@@ -170,13 +190,19 @@ public class CarsListScreen {
         Double longitude = Double.parseDouble(y);
         vl.atualizarLocalizacao(latitude, longitude);
         VerificaLocalizacaoDao.salvarVerificaLocalizacao(latitude, longitude, car.getIdCarro());
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("Localização alterada com sucesso.");
+        System.out.println(vl.obterLocalizacao());
     }
 
     private static void obterInformaoes(Carro car) {
         InformacaoDoCarro ic = car.getInformacaoDoCarro();
         if (ic != null) {
             System.out.println(ic.obterInfo());
-
+            System.out.println("");
+        } else {
+            System.out.println("Informações para esse veículo ainda não foram registradas.\n");
         }
     }
 
@@ -190,7 +216,11 @@ public class CarsListScreen {
         System.out.println("Digite a Situacao:");
         String situacao = in.readLine().toString();
         ic.modificarInfo(dataManutencao, descricao, situacao);
+        car.setInformacaoDoCarro(ic);
+        InformacaoDoCarroDao.salvarInformacaoDoCarro(situacao, descricao, dataManutencao, car.getIdCarro());
 
+        System.out.print("\033[H\033[2J");
+        System.out.println("Informações alteradas com sucesso.");
     }
 
     private static void editCar(Carro car) throws IOException {

@@ -3,6 +3,7 @@ package models;
 import java.util.Optional;
 
 import controllers.ControlaTrancamento;
+import dao.CarroDao;
 
 public class Carro {
     private String marca;

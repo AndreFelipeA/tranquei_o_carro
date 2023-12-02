@@ -14,7 +14,6 @@ public class Credenciais {
             return false;
         }
         
-        System.out.println(user.getSenha());
         if (senha.equals(user.getSenha())) {
             usuarioLogado = user;
             return true;

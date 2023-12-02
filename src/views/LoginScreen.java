@@ -57,9 +57,9 @@ public class LoginScreen {
 
         boolean auth = Credenciais.verificaCredenciais(email, senha);
         if (auth) {
-            System.out.println("Logado com sucesso!");
+            System.out.println("Logado com sucesso!\n");
         } else {
-            System.out.println("Credenciais inválidas!");
+            System.out.println("Credenciais inválidas!\n");
         }
 
         return auth;

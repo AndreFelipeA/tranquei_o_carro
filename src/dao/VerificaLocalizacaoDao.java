@@ -22,7 +22,7 @@ public class VerificaLocalizacaoDao {
                 preparedStatement.setInt(3, idCarro);
 
                 // Executar a inserção
-                preparedStatement.executeUpdate();
+                preparedStatement.executeQuery();
             }
         } catch (SQLException e) {
             e.printStackTrace();
